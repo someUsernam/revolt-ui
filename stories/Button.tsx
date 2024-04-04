@@ -1,53 +1,59 @@
-import PropTypes from "prop-types";
-import React from "react";
+import React, { ComponentProps, ElementRef } from "react";
 
-/**
- * Primary UI component for user interaction
- */
-export const Button = ({ primary, backgroundColor, size, label, ...props }) => {
-	const mode = primary
-		? "storybook-button--primary"
-		: "storybook-button--secondary";
+interface ButtonProps extends ComponentProps<"button"> {
+	type?: "button" | "submit" | "reset";
+	variant?: "primary" | "secondary";
+	className?: string;
+	disabled?: boolean;
+	buttonRef?: React.RefObject<ElementRef<"button">>;
+	children: React.ReactNode;
+}
+
+const dataHover = "";
+
+const dataActive = "";
+
+const dataFocus = "";
+
+const dataDisabled =
+	"data-[disabled]:opacity-50 after:data-[disabled]:shadow-none before:data-[disabled]:shadow-none";
+
+const after =
+	"after:-z-10 after:absolute after:inset-0 after:rounded-[calc(theme(borderRadius.lg)-1px)]";
+
+const base = `relative rounded-lg inline-flex items-center justify-center gap-x-2 text-base/6 font-semibold isolate px-[calc(theme(spacing[3.5])-1px)] py-[calc(theme(spacing[2.5])-1px)] sm:px-[calc(theme(spacing.3)-1px)] sm:py-[calc(theme(spacing[1.5])-1px)] sm:text-sm/6 ${after}`;
+
+const variants = {
+	primary: `${base} bg-blue-500 text-white `,
+	secondary: `${base} bg-red-500 text-white`,
+};
+
+function Button({
+	type = "button",
+	variant = "primary",
+	children,
+	className = "",
+	disabled = false,
+	buttonRef,
+	...props
+}: ButtonProps) {
 	return (
 		<button
-			type="button"
-			className={["storybook-button", `storybook-button--${size}`, mode].join(
-				" ",
-			)}
-			style={backgroundColor && { backgroundColor }}
+			type={type}
+			data-variant={variant}
+			className={`
+				${className}
+				${variants[variant]}
+				${disabled && dataDisabled}
+			`}
+			disabled={disabled}
+			data-disabled={disabled}
+			ref={buttonRef}
 			{...props}
 		>
-			{label}
+			{children}
 		</button>
 	);
-};
+}
 
-Button.propTypes = {
-	/**
-	 * Is this the principal call to action on the page?
-	 */
-	primary: PropTypes.bool,
-	/**
-	 * What background color to use
-	 */
-	backgroundColor: PropTypes.string,
-	/**
-	 * How large should the button be?
-	 */
-	size: PropTypes.oneOf(["small", "medium", "large"]),
-	/**
-	 * Button contents
-	 */
-	label: PropTypes.string.isRequired,
-	/**
-	 * Optional click handler
-	 */
-	onClick: PropTypes.func,
-};
-
-Button.defaultProps = {
-	backgroundColor: null,
-	primary: false,
-	size: "medium",
-	onClick: undefined,
-};
+export { Button };
