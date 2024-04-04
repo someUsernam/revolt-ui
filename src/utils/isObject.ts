@@ -1,3 +1,3 @@
-export function isObject(value): value is Record<PropertyKey, unknown> {
+export function isObject(value) {
 	return value !== null && typeof value === "object" && !Array.isArray(value);
 }
