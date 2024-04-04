@@ -1,6 +1,8 @@
 import { isObject } from "./isObject";
 
-export function cx(...args: unknown[]) {
+export function cx(
+	...args: (string | Record<string, boolean> | Array<string> | undefined)[]
+) {
 	let classes = "";
 	for (const arg of args) {
 		if (typeof arg === "string") {
