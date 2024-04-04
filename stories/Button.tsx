@@ -1,4 +1,5 @@
 import React, { ComponentProps, ElementRef } from "react";
+import { cx } from "../src/utils/cx";
 
 interface ButtonProps extends ComponentProps<"button"> {
 	type?: "button" | "submit" | "reset";
@@ -43,16 +44,14 @@ function Button({
 		<button
 			type={type}
 			data-variant={variant}
-			className={`
-				${className}
-				${variants[variant]}
-				${disabled && dataDisabled}
-				${
-					size === "sm" &&
-					"px-[calc(theme(spacing[2])-1px)] py-[calc(theme(spacing[2])-1px)] sm:px-[calc(theme(spacing.2)-1px)] sm:py-[calc(theme(spacing[1])-1px)]"
-				}
-				${size === "lg" && "text-lg/6 sm:text-lg/6"}
-			`}
+			className={cx(
+				className,
+				variants[variant],
+				disabled && dataDisabled,
+				size === "sm" &&
+					"px-[calc(theme(spacing[2])-1px)] py-[calc(theme(spacing[2])-1px)] sm:px-[calc(theme(spacing.2)-1px)] sm:py-[calc(theme(spacing[1])-1px)]",
+				size === "lg" && "text-lg/6 sm:text-lg/6",
+			)}
 			disabled={disabled}
 			data-disabled={disabled}
 			ref={buttonRef}
