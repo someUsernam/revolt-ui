@@ -1,9 +1,11 @@
 import "../src/tailwind.css";
 
+import { Preview } from "@storybook/react";
+
 import { withThemeByDataAttribute } from "@storybook/addon-themes";
 
-/** @type { import('@storybook/react').Preview } */
-const preview = {
+// /** @type { import('@storybook/react').Preview } */
+const preview: Preview = {
 	parameters: {
 		controls: {
 			matchers: {
@@ -22,7 +24,7 @@ export const decorators = [
 			dark: "dark",
 		},
 		defaultTheme: "light",
-		dataAttribute: "data-theme",
+		attributeName: "data-mode",
 	}),
 ];
 
