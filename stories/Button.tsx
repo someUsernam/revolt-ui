@@ -5,6 +5,7 @@ interface ButtonProps extends ComponentProps<"button"> {
 	variant?: "primary" | "secondary";
 	className?: string;
 	disabled?: boolean;
+	size?: "base" | "sm" | "lg";
 	buttonRef?: React.RefObject<ElementRef<"button">>;
 	children: React.ReactNode;
 }
@@ -35,6 +36,7 @@ function Button({
 	className = "",
 	disabled = false,
 	buttonRef,
+	size = "base",
 	...props
 }: ButtonProps) {
 	return (
@@ -45,6 +47,11 @@ function Button({
 				${className}
 				${variants[variant]}
 				${disabled && dataDisabled}
+				${
+					size === "sm" &&
+					"px-[calc(theme(spacing[2])-1px)] py-[calc(theme(spacing[2])-1px)] sm:px-[calc(theme(spacing.2)-1px)] sm:py-[calc(theme(spacing[1])-1px)]"
+				}
+				${size === "lg" && "text-lg/6 sm:text-lg/6"}
 			`}
 			disabled={disabled}
 			data-disabled={disabled}

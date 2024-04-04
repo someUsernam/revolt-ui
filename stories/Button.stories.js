@@ -27,9 +27,13 @@ export const Secondary = {
 };
 
 export const Large = {
-	args: {},
+	args: {
+		size: "lg",
+	},
 };
 
 export const Small = {
-	args: {},
+	args: {
+		size: "sm",
+	},
 };
