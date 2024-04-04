@@ -1,7 +1,13 @@
 import { isObject } from "./isObject";
 
 export function cx(
-	...args: (string | Record<string, boolean> | Array<string> | undefined)[]
+	...args: (
+		| string
+		| boolean
+		| Record<string, boolean>
+		| Array<string>
+		| undefined
+	)[]
 ) {
 	let classes = "";
 	for (const arg of args) {
@@ -22,5 +28,5 @@ export function cx(
 		}
 	}
 
-	return classes;
+	return classes.trim();
 }
