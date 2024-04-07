@@ -16,28 +16,27 @@ type Config = {
 type Props = {
 	variant?: string;
 	size?: string;
+	[key: string]: boolean | string | undefined;
 };
 
 export function vt(base: ClassValue, config: Config = {}) {
-	return (props: Props) => {
+	return ({ variant, size, ...states }: Props) => {
 		let classes = "";
 		if (base) {
 			classes += `${cx(base)} `;
 		}
 
-		if (config.variants && props.variant && config.variants[props.variant]) {
-			classes += `${config.variants[props.variant]} `;
+		if (config.variants && variant && config.variants[variant]) {
+			classes += `${config.variants[variant]} `;
 		}
 
-		if (config.sizes && props.size && config.sizes[props.size]) {
-			classes += `${config.sizes[props.size]} `;
+		if (config.sizes && size && config.sizes[size]) {
+			classes += `${config.sizes[size]} `;
 		}
 
-		if (config.states) {
-			for (const state in config.states) {
-				if (props[state]) {
-					classes += `${config.states[state]} `;
-				}
+		for (const state in states) {
+			if (config.states && states[state] && config.states[state]) {
+				classes += `${config.states[state]} `;
 			}
 		}
 
@@ -65,6 +64,6 @@ export function vt(base: ClassValue, config: Config = {}) {
 // } )
 
 // const Button = (props) => {
-//   const classes = button({ variant: 'primary', size: 'lg'})
+//   const classes = button({ variant: 'primary', size: 'lg', disabled: true, hover: true, focus: true, active: true, isButton: true})
 //   return <button className={classes}>Click me</button>
 // }
