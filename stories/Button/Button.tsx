@@ -66,8 +66,9 @@ type ButtonProps = {
 	className?: string;
 	disabled?: boolean;
 	size?: keyof SizesRecord;
+	href?: string;
 	children: React.ReactNode;
-} & ComponentProps<"button">;
+} & (ComponentProps<"button"> | ComponentProps<"a">);
 
 function Button({
 	type = "button",
@@ -76,10 +77,13 @@ function Button({
 	className = "",
 	disabled = false,
 	size = "md",
+	href,
 	...props
 }: ButtonProps) {
+	const Component = href ? "a" : "button";
+
 	return (
-		<button
+		<Component
 			type={type}
 			data-variant={variant}
 			className={cx(
@@ -92,11 +96,11 @@ function Button({
 			)}
 			disabled={disabled}
 			data-disabled={disabled}
-			// href={href}
+			href={href}
 			{...props}
 		>
 			{children}
-		</button>
+		</Component>
 	);
 }
 
