@@ -7,10 +7,14 @@ type ClassValue =
 	| Array<string>
 	| undefined;
 
-type Config = {
-	variants?: Record<string, string>;
-	sizes?: Record<string, string>;
-	states?: Record<string, string>;
+type Config<
+	V extends Record<string, string>,
+	S extends Record<string, string>,
+	T extends Record<string, string>,
+> = {
+	variants?: V;
+	sizes?: S;
+	states?: T;
 };
 
 type Props = {
@@ -19,7 +23,18 @@ type Props = {
 	[key: string]: boolean | string | undefined;
 };
 
-export function vt(base: ClassValue, config: Config = {}) {
+type OmitUndefined<T> = {
+	[P in keyof T]: NonNullable<T[P]>;
+};
+
+export function vt<
+	V extends Record<string, string>,
+	S extends Record<string, string>,
+	T extends Record<string, string>,
+>(
+	base: ClassValue,
+	config: Config<V, S, T>,
+): (props: OmitUndefined<Props>) => string {
 	return ({ variant, size, ...states }: Props) => {
 		let classes = "";
 		if (base) {
