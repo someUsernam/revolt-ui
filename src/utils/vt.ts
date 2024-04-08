@@ -43,27 +43,3 @@ export function vt(base: ClassValue, config: Config = {}) {
 		return classes.trim();
 	};
 }
-
-// Usage:
-// const button = vt('font-bold p-3',{
-//   variants: {
-//     primary: 'bg-blue-500 text-white',
-//     secondary: 'bg-gray-300 text-gray-800',
-//   },
-//   sizes: {
-//     sm: 'text-sm',
-//     md: 'text-md',
-//     lg: 'text-lg',
-//   },
-//   states: {
-//     hover: 'hover:bg-blue-600',
-//     active: 'active:bg-blue-700',
-//     focus: 'focus:ring-2 focus:ring-blue-500',
-//     disabled: 'opacity-50 shadow-none',
-//   },
-// } )
-
-// const Button = (props) => {
-//   const classes = button({ variant: 'primary', size: 'lg', disabled: true, hover: true, focus: true, active: true, isButton: true})
-//   return <button className={classes}>Click me</button>
-// }
