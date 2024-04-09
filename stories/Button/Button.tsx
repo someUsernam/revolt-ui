@@ -1,4 +1,9 @@
-import React, { ComponentProps } from "react";
+import React, {
+	ComponentProps,
+	ComponentPropsWithRef,
+	ForwardedRef,
+	forwardRef,
+} from "react";
 import { cx } from "../../src/utils/cx";
 import { vt } from "../../src/utils/vt";
 
@@ -18,6 +23,7 @@ type VariantsRecord = {
 	muted: string;
 	outlined: string;
 	ghost: string;
+	link: string;
 };
 
 type SizesRecord = {
@@ -43,6 +49,7 @@ const button = vt<VariantsRecord, SizesRecord, StatesRecord>(
 			muted: "bg-muted text-muted-foreground",
 			outlined: "bg-transparent border border-primary text-primary",
 			ghost: "bg-transparent text-primary",
+			link: "text-primary underline-offset-4 hover:underline",
 		},
 		sizes: {
 			sm: "text-sm/6 px-[calc(theme(spacing[2])-1px)] py-[calc(theme(spacing[2])-1px)] sm:px-[calc(theme(spacing.2)-1px)] sm:py-[calc(theme(spacing[1])-1px)]",
@@ -63,45 +70,47 @@ const button = vt<VariantsRecord, SizesRecord, StatesRecord>(
 type ButtonProps = {
 	type?: ComponentProps<"button">["type"];
 	variant?: keyof VariantsRecord;
-	className?: string;
-	disabled?: boolean;
+	className?: ComponentProps<"button">["className"];
+	disabled?: ComponentProps<"button">["disabled"];
 	size?: keyof SizesRecord;
-	href?: string;
+	ref: ForwardedRef<HTMLButtonElement | HTMLAnchorElement>;
 	children: React.ReactNode;
-} & (ComponentProps<"button"> | ComponentProps<"a">);
+} & ComponentPropsWithRef<"button">;
 
-function Button({
-	type = "button",
-	variant = "primary",
-	children,
-	className = "",
-	disabled = false,
-	size = "md",
-	href,
-	...props
-}: ButtonProps) {
-	const Component = href ? "a" : "button";
-
-	return (
-		<Component
-			type={type}
-			data-variant={variant}
-			className={cx(
-				button({
-					variant,
-					size,
-					disabled,
-				}),
-				className,
-			)}
-			disabled={disabled}
-			data-disabled={disabled}
-			href={href}
-			{...props}
-		>
-			{children}
-		</Component>
-	);
-}
+const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+	(
+		{
+			type = "button",
+			variant = "primary",
+			children,
+			className = "",
+			disabled = false,
+			size = "md",
+			...props
+		},
+		ref,
+	) => {
+		return (
+			<button
+				type={type}
+				data-variant={variant}
+				className={cx(
+					button({
+						variant,
+						size,
+						disabled,
+					}),
+					className,
+				)}
+				disabled={disabled}
+				data-disabled={disabled}
+				{...props}
+				ref={ref}
+			>
+				{children}
+			</button>
+		);
+	},
+);
 
 export { Button };
