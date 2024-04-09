@@ -14,7 +14,7 @@ const after =
 	"after:-z-10 after:absolute after:inset-0 after:rounded-[calc(theme(borderRadius.lg)-1px)] after:shadow-[shadow:inset_0_1px_theme(colors.white/15%)]";
 
 const base =
-	"relative rounded-lg inline-flex items-center justify-center gap-x-2 font-semibold isolate border";
+	"relative rounded-lg inline-flex items-center justify-center font-semibold isolate border";
 
 type VariantsRecord = {
 	primary: string;
@@ -54,7 +54,7 @@ const button = vt<VariantsRecord, SizesRecord, StatesRecord>(
 		sizes: {
 			sm: "text-sm/6 px-[calc(theme(spacing[2])-1px)] py-[calc(theme(spacing[2])-1px)] sm:px-[calc(theme(spacing.2)-1px)] sm:py-[calc(theme(spacing[1])-1px)]",
 			md: "text-base/6 px-[calc(theme(spacing[3.5])-1px)] py-[calc(theme(spacing[2.5])-1px)] sm:px-[calc(theme(spacing.3)-1px)] sm:py-[calc(theme(spacing[1.5])-1px)] sm:text-sm/6",
-			lg: "text-lg/6 sm:text-base/6 px-[calc(theme(spacing[4.5])-1px)] py-[calc(theme(spacing[3.5])-1px)] sm:px-[calc(theme(spacing.4)-1px)] sm:py-[calc(theme(spacing[2.5])-1px)]",
+			lg: "text-lg/6 sm:text-base/6 px-[calc(theme(spacing[4])-1px)] py-[calc(theme(spacing[3.5])-1px)] sm:px-[calc(theme(spacing.4)-1px)] sm:py-[calc(theme(spacing[2.5])-1px)]",
 		},
 		states: {
 			hover: "hover:bg-red-600",
